@@ -1,26 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\Pagerfanta;
 
 interface ViewInterface
 {
     /**
-     * Renders a Pagerfanta instance.
-     *
-     * The route generator can be any callable to generate the routes receiving the page number as first and unique argument.
-     *
-     * @param callable $routeGenerator
-     *
-     * @return string
+     * @param callable $routeGenerator callable with a signature of `function (int $page): string {}`
      */
-    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = []);
+    public function render(Pagerfanta $pagerfanta, callable $routeGenerator, array $options = []): string;
 
-    /**
-     * Returns the canonical name.
-     *
-     * @return string
-     */
-    public function getName();
+    public function getName(): string;
 }

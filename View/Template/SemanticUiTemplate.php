@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View\Template;
 
@@ -7,7 +7,7 @@ class SemanticUiTemplate extends Template
     /**
      * @var string[]
      */
-    protected static $defaultOptions = [
+    protected static array $defaultOptions = [
         'prev_message' => '&larr; Previous',
         'next_message' => 'Next &rarr;',
         'dots_message' => '&hellip;',
@@ -28,29 +28,17 @@ class SemanticUiTemplate extends Template
         );
     }
 
-    /**
-     * @param int $page
-     */
-    public function page($page): string
+    public function page(int $page): string
     {
         return $this->pageWithText($page, (string) $page);
     }
 
-    /**
-     * @param int    $page
-     * @param string $text
-     */
-    public function pageWithText($page, $text, ?string $rel = null): string
+    public function pageWithText(int $page, string $text, ?string $rel = null): string
     {
         return $this->pageWithTextAndClass($page, $text, '');
     }
 
-    /**
-     * @param int    $page
-     * @param string $text
-     * @param string $class
-     */
-    private function pageWithTextAndClass($page, $text, $class): string
+    private function pageWithTextAndClass(int $page, string $text, string $class): string
     {
         return $this->link($class, $this->generateRoute($page), $text);
     }
@@ -65,10 +53,7 @@ class SemanticUiTemplate extends Template
         return $this->option('css_prev_class').' '.$this->option('css_disabled_class');
     }
 
-    /**
-     * @param int $page
-     */
-    public function previousEnabled($page): string
+    public function previousEnabled(int $page): string
     {
         return $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'));
     }
@@ -83,10 +68,7 @@ class SemanticUiTemplate extends Template
         return $this->option('css_next_class').' '.$this->option('css_disabled_class');
     }
 
-    /**
-     * @param int $page
-     */
-    public function nextEnabled($page): string
+    public function nextEnabled(int $page): string
     {
         return $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'));
     }
@@ -96,18 +78,12 @@ class SemanticUiTemplate extends Template
         return $this->page(1);
     }
 
-    /**
-     * @param int $page
-     */
-    public function last($page): string
+    public function last(int $page): string
     {
         return $this->page($page);
     }
 
-    /**
-     * @param int $page
-     */
-    public function current($page): string
+    public function current(int $page): string
     {
         $text = trim($page.' '.$this->option('active_suffix'));
 

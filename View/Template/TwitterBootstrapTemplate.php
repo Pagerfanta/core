@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View\Template;
 
@@ -7,7 +7,7 @@ class TwitterBootstrapTemplate extends Template
     /**
      * @var string[]
      */
-    protected static $defaultOptions = [
+    protected static array $defaultOptions = [
         'prev_message' => '&larr; Previous',
         'next_message' => 'Next &rarr;',
         'dots_message' => '&hellip;',
@@ -29,29 +29,17 @@ class TwitterBootstrapTemplate extends Template
         );
     }
 
-    /**
-     * @param int $page
-     */
-    public function page($page): string
+    public function page(int $page): string
     {
         return $this->pageWithText($page, (string) $page);
     }
 
-    /**
-     * @param int    $page
-     * @param string $text
-     */
-    public function pageWithText($page, $text, ?string $rel = null): string
+    public function pageWithText(int $page, string $text, ?string $rel = null): string
     {
         return $this->pageWithTextAndClass($page, $text, '', $rel);
     }
 
-    /**
-     * @param int    $page
-     * @param string $text
-     * @param string $class
-     */
-    private function pageWithTextAndClass($page, $text, $class, ?string $rel = null): string
+    private function pageWithTextAndClass(int $page, string $text, string $class, ?string $rel = null): string
     {
         return $this->linkLi($class, $this->generateRoute($page), $text, $rel);
     }
@@ -66,15 +54,12 @@ class TwitterBootstrapTemplate extends Template
         return $this->option('css_prev_class').' '.$this->option('css_disabled_class');
     }
 
-    /**
-     * @param int $page
-     */
-    public function previousEnabled($page): string
+    public function previousEnabled(int $page): string
     {
         return $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous'));
     }
 
-    public function nextDisabled()
+    public function nextDisabled(): string
     {
         return $this->spanLi($this->nextDisabledClass(), $this->option('next_message'));
     }
@@ -84,10 +69,7 @@ class TwitterBootstrapTemplate extends Template
         return $this->option('css_next_class').' '.$this->option('css_disabled_class');
     }
 
-    /**
-     * @param int $page
-     */
-    public function nextEnabled($page): string
+    public function nextEnabled(int $page): string
     {
         return $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next'));
     }
@@ -97,18 +79,12 @@ class TwitterBootstrapTemplate extends Template
         return $this->page(1);
     }
 
-    /**
-     * @param int $page
-     */
-    public function last($page): string
+    public function last(int $page): string
     {
         return $this->page($page);
     }
 
-    /**
-     * @param int $page
-     */
-    public function current($page): string
+    public function current(int $page): string
     {
         $text = trim($page.' '.$this->option('active_suffix'));
 
@@ -121,12 +97,9 @@ class TwitterBootstrapTemplate extends Template
     }
 
     /**
-     * @param string      $class
-     * @param string      $href
-     * @param int|string  $text
-     * @param string|null $rel
+     * @param int|string $text
      */
-    protected function linkLi($class, $href, $text, $rel = null): string
+    protected function linkLi(string $class, string $href, $text, ?string $rel = null): string
     {
         $liClass = $class ? sprintf(' class="%s"', $class) : '';
         $rel = $rel ? sprintf(' rel="%s"', $rel) : '';
@@ -135,10 +108,9 @@ class TwitterBootstrapTemplate extends Template
     }
 
     /**
-     * @param string     $class
      * @param int|string $text
      */
-    protected function spanLi($class, $text): string
+    protected function spanLi(string $class, $text): string
     {
         $liClass = $class ? sprintf(' class="%s"', $class) : '';
 

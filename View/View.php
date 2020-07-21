@@ -1,55 +1,21 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View;
 
 use Pagerfanta\Pagerfanta;
-use Pagerfanta\PagerfantaInterface;
 
 abstract class View implements ViewInterface
 {
-    /**
-     * @var PagerfantaInterface
-     */
-    protected $pagerfanta;
+    protected Pagerfanta $pagerfanta;
 
-    /**
-     * @var int
-     */
-    protected $currentPage;
+    protected ?int $currentPage = null;
+    protected ?int $nbPages = null;
+    protected ?int $proximity = null;
+    protected ?int $startPage = null;
+    protected ?int $endPage = null;
 
-    /**
-     * @var int
-     */
-    protected $nbPages;
-
-    /**
-     * @var int
-     */
-    protected $proximity;
-
-    /**
-     * @var int
-     */
-    protected $startPage;
-
-    /**
-     * @var int
-     */
-    protected $endPage;
-
-    protected function initializePagerfanta(PagerfantaInterface $pagerfanta): void
+    protected function initializePagerfanta(Pagerfanta $pagerfanta): void
     {
-        if (!($pagerfanta instanceof Pagerfanta)) {
-            trigger_deprecation(
-                'pagerfanta/pagerfanta',
-                '2.2',
-                '%1$s::render() will no longer accept "%2$s" implementations that are not a subclass of "%3$s" as of 3.0. Ensure your pager is a subclass of "%3$s".',
-                ViewInterface::class,
-                PagerfantaInterface::class,
-                Pagerfanta::class
-            );
-        }
-
         $this->pagerfanta = $pagerfanta;
 
         $this->currentPage = $pagerfanta->getCurrentPage();
@@ -61,10 +27,7 @@ abstract class View implements ViewInterface
         $this->proximity = isset($options['proximity']) ? (int) $options['proximity'] : $this->getDefaultProximity();
     }
 
-    /**
-     * @return int
-     */
-    protected function getDefaultProximity()
+    protected function getDefaultProximity(): int
     {
         return 2;
     }
@@ -88,54 +51,27 @@ abstract class View implements ViewInterface
         $this->endPage = $endPage;
     }
 
-    /**
-     * @param int $startPage
-     *
-     * @return bool
-     */
-    protected function startPageUnderflow($startPage)
+    protected function startPageUnderflow(int $startPage): bool
     {
         return $startPage < 1;
     }
 
-    /**
-     * @param int $endPage
-     *
-     * @return bool
-     */
-    protected function endPageOverflow($endPage)
+    protected function endPageOverflow(int $endPage): bool
     {
         return $endPage > $this->nbPages;
     }
 
-    /**
-     * @param int $startPage
-     * @param int $endPage
-     *
-     * @return int
-     */
-    protected function calculateEndPageForStartPageUnderflow($startPage, $endPage)
+    protected function calculateEndPageForStartPageUnderflow(int $startPage, int $endPage): int
     {
         return min($endPage + (1 - $startPage), $this->nbPages);
     }
 
-    /**
-     * @param int $startPage
-     * @param int $endPage
-     *
-     * @return int
-     */
-    protected function calculateStartPageForEndPageOverflow($startPage, $endPage)
+    protected function calculateStartPageForEndPageOverflow(int $startPage, int $endPage): int
     {
         return max($startPage - ($endPage - $this->nbPages), 1);
     }
 
-    /**
-     * @param int $n
-     *
-     * @return int
-     */
-    protected function toLast($n)
+    protected function toLast(int $n): int
     {
         return $this->pagerfanta->getNbPages() - ($n - 1);
     }

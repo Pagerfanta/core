@@ -1,16 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View\Template;
 
 class TwitterBootstrap4Template extends TwitterBootstrap3Template
 {
     /**
-     * @param string      $class
-     * @param string      $href
-     * @param int|string  $text
-     * @param string|null $rel
+     * @param int|string $text
      */
-    protected function linkLi($class, $href, $text, $rel = null): string
+    protected function linkLi(string $class, string $href, $text, ?string $rel = null): string
     {
         $liClass = implode(' ', array_filter(['page-item', $class]));
         $rel = $rel ? sprintf(' rel="%s"', $rel) : '';
@@ -19,10 +16,9 @@ class TwitterBootstrap4Template extends TwitterBootstrap3Template
     }
 
     /**
-     * @param string $class
-     * @param string $text
+     * @param int|string $text
      */
-    protected function spanLi($class, $text): string
+    protected function spanLi(string $class, $text): string
     {
         $liClass = implode(' ', array_filter(['page-item', $class]));
 

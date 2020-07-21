@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View\Template;
 
@@ -7,7 +7,7 @@ class DefaultTemplate extends Template
     /**
      * @var string[]
      */
-    protected static $defaultOptions = [
+    protected static array $defaultOptions = [
         'prev_message' => 'Previous',
         'next_message' => 'Next',
         'css_disabled_class' => 'disabled',
@@ -26,20 +26,12 @@ class DefaultTemplate extends Template
         return $this->option('container_template');
     }
 
-    /**
-     * @param int $page
-     */
-    public function page($page): string
+    public function page(int $page): string
     {
         return $this->pageWithText($page, (string) $page);
     }
 
-    /**
-     * @param int         $page
-     * @param string      $text
-     * @param string|null $rel
-     */
-    public function pageWithText($page, $text, $rel = null): string
+    public function pageWithText(int $page, string $text, ?string $rel = null): string
     {
         $href = $this->generateRoute($page);
         $replace = $rel ? [$href, $text, ' rel="'.$rel.'"'] : [$href, $text, ''];
@@ -52,10 +44,7 @@ class DefaultTemplate extends Template
         return $this->generateSpan($this->option('css_disabled_class'), $this->option('prev_message'));
     }
 
-    /**
-     * @param int $page
-     */
-    public function previousEnabled($page): string
+    public function previousEnabled(int $page): string
     {
         return $this->pageWithText($page, $this->option('prev_message'), $this->option('rel_previous'));
     }
@@ -65,10 +54,7 @@ class DefaultTemplate extends Template
         return $this->generateSpan($this->option('css_disabled_class'), $this->option('next_message'));
     }
 
-    /**
-     * @param int $page
-     */
-    public function nextEnabled($page): string
+    public function nextEnabled(int $page): string
     {
         return $this->pageWithText($page, $this->option('next_message'), $this->option('rel_next'));
     }
@@ -78,18 +64,12 @@ class DefaultTemplate extends Template
         return $this->page(1);
     }
 
-    /**
-     * @param int $page
-     */
-    public function last($page): string
+    public function last(int $page): string
     {
         return $this->page($page);
     }
 
-    /**
-     * @param int $page
-     */
-    public function current($page): string
+    public function current(int $page): string
     {
         return $this->generateSpan($this->option('css_current_class'), $page);
     }

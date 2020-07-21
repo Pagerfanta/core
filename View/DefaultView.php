@@ -1,17 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View;
 
 use Pagerfanta\View\Template\DefaultTemplate;
+use Pagerfanta\View\Template\TemplateInterface;
 
 class DefaultView extends TemplateView
 {
-    protected function createDefaultTemplate()
+    protected function createDefaultTemplate(): TemplateInterface
     {
         return new DefaultTemplate();
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'default';
     }

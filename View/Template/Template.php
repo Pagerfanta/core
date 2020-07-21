@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View\Template;
 
@@ -7,15 +7,9 @@ use Pagerfanta\Exception\RuntimeException;
 
 abstract class Template implements TemplateInterface
 {
-    /**
-     * @var array
-     */
-    protected static $defaultOptions = [];
+    protected static array $defaultOptions = [];
 
-    /**
-     * @var array
-     */
-    private $options;
+    private array $options;
 
     /**
      * @var callable|null
@@ -27,17 +21,8 @@ abstract class Template implements TemplateInterface
         $this->options = static::$defaultOptions;
     }
 
-    /**
-     * @param callable $routeGenerator
-     *
-     * @throws InvalidArgumentException if the route generator is not a callable
-     */
-    public function setRouteGenerator($routeGenerator): void
+    public function setRouteGenerator(callable $routeGenerator): void
     {
-        if (!\is_callable($routeGenerator)) {
-            throw new InvalidArgumentException(sprintf('The $routeGenerator argument of %s() must be a callable, a %s was given.', __METHOD__, \gettype($routeGenerator)));
-        }
-
         $this->routeGenerator = $routeGenerator;
     }
 
@@ -48,12 +33,8 @@ abstract class Template implements TemplateInterface
 
     /**
      * Generate the route (URL) for the given page.
-     *
-     * @param int $page
-     *
-     * @return string
      */
-    protected function generateRoute($page)
+    protected function generateRoute(int $page): string
     {
         $generator = $this->getRouteGenerator();
 
@@ -73,13 +54,11 @@ abstract class Template implements TemplateInterface
     }
 
     /**
-     * @param string $name The name of the option to look up
-     *
      * @return mixed The option value if it exists
      *
      * @throws InvalidArgumentException if the option does not exist
      */
-    protected function option($name)
+    protected function option(string $name)
     {
         if (!isset($this->options[$name])) {
             throw new InvalidArgumentException(sprintf('The option "%s" does not exist.', $name));

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View;
 
@@ -7,65 +7,28 @@ use Pagerfanta\Exception\InvalidArgumentException;
 interface ViewFactoryInterface
 {
     /**
-     * Adds a collection of views.
-     *
      * @param array<string, ViewInterface> $views
-     *
-     * @return void
      */
-    public function add(array $views);
+    public function add(array $views): void;
 
     /**
-     * Returns all the views.
-     *
      * @return array<string, ViewInterface>
      */
     public function all();
 
-    /**
-     * Clears the views.
-     *
-     * @return void
-     */
-    public function clear();
+    public function clear(): void;
 
     /**
-     * Fetches a named view from the factory.
-     *
-     * @param string $name
-     *
-     * @return ViewInterface the view
-     *
      * @throws InvalidArgumentException if the view does not exist
      */
-    public function get($name);
+    public function get(string $name): ViewInterface;
+
+    public function has(string $name): bool;
 
     /**
-     * Checks whether a named view is registered to the factory.
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function has($name);
-
-    /**
-     * Removes a view.
-     *
-     * @param string $name the name
-     *
-     * @return void
-     *
      * @throws InvalidArgumentException if the view does not exist
      */
-    public function remove($name);
+    public function remove(string $name): void;
 
-    /**
-     * Sets a view to the factory.
-     *
-     * @param string $name
-     *
-     * @return void
-     */
-    public function set($name, ViewInterface $view);
+    public function set(string $name, ViewInterface $view): void;
 }

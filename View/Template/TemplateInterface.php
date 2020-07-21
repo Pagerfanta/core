@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View\Template;
 
@@ -7,92 +7,57 @@ interface TemplateInterface
     /**
      * Renders the container for the pagination.
      *
-     * The %pages% placeholder will be replaced by the rendering of pages
-     *
-     * @return string
+     * The %pages% placeholder will be replaced by the rendering of pages.
      */
-    public function container();
+    public function container(): string;
 
     /**
      * Renders a given page.
-     *
-     * @param int $page
-     *
-     * @return string
      */
-    public function page($page);
+    public function page(int $page): string;
 
     /**
      * Renders a given page with a specified text.
-     *
-     * @param int    $page
-     * @param string $text
-     *
-     * @return string
      */
-    public function pageWithText($page, $text/*, ?string $rel = null */);
+    public function pageWithText(int $page, string $text, ?string $rel = null): string;
 
     /**
      * Renders the disabled state of the previous page.
-     *
-     * @return string
      */
-    public function previousDisabled();
+    public function previousDisabled(): string;
 
     /**
      * Renders the enabled state of the previous page.
-     *
-     * @param int $page
-     *
-     * @return string
      */
-    public function previousEnabled($page);
+    public function previousEnabled(int $page): string;
 
     /**
      * Renders the disabled state of the next page.
-     *
-     * @return string
      */
-    public function nextDisabled();
+    public function nextDisabled(): string;
 
     /**
      * Renders the enabled state of the next page.
-     *
-     * @param int $page
-     *
-     * @return string
      */
-    public function nextEnabled($page);
+    public function nextEnabled(int $page): string;
 
     /**
      * Renders the first page.
-     *
-     * @return string
      */
-    public function first();
+    public function first(): string;
 
     /**
      * Renders the last page.
-     *
-     * @param int $page
-     *
-     * @return string
      */
-    public function last($page);
+    public function last(int $page): string;
 
     /**
      * Renders the current page.
-     *
-     * @param int $page
-     *
-     * @return string
      */
-    public function current($page);
+    public function current(int $page): string;
 
     /**
      * Renders the separator between pages.
-     *
-     * @return string
      */
-    public function separator();
+    public function separator(): string;
 }
