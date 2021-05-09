@@ -49,7 +49,7 @@ class Foundation6Template extends Template
 
     public function previousDisabled(): string
     {
-        return $this->spanLi($this->previousDisabledClass(), $this->option('prev_message'));
+        return $this->li($this->previousDisabledClass(), $this->option('prev_message'));
     }
 
     private function previousDisabledClass(): string
@@ -64,7 +64,7 @@ class Foundation6Template extends Template
 
     public function nextDisabled(): string
     {
-        return $this->spanLi($this->nextDisabledClass(), $this->option('next_message'));
+        return $this->li($this->nextDisabledClass(), $this->option('next_message'));
     }
 
     private function nextDisabledClass(): string
@@ -123,15 +123,5 @@ class Foundation6Template extends Template
         $itemRel = $rel ? sprintf(' rel="%s"', $rel) : '';
 
         return sprintf('<li%s><a href="%s"%s>%s</a></li>', $liClass, $href, $itemRel, $text);
-    }
-
-    /**
-     * @param int|string $text
-     */
-    protected function spanLi(string $class, $text): string
-    {
-        $liClass = sprintf(' class="%s"', trim($this->option('css_item_class').' '.$class));
-
-        return sprintf('<li%s><span>%s</span></li>', $liClass, $text);
     }
 }
